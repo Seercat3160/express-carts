@@ -1,3 +1,2 @@
-- Holding the backwards movement key while in a moving Express Minecart will now cause it to brake.
-- Values can now be configured using `/config expresscarts`.
-- Added the `/expresscarts` command, which displays the mod version and current config values.
+- Update to 1.21.5.
+  - 1.21.4 will continue to be supported for the time being.

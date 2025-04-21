@@ -26,6 +26,8 @@ import net.minecraft.world.level.block.DispenserBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URI;
+
 public class ExpressCarts implements ModInitializer {
     public static final String MOD_ID = "expresscarts";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
@@ -55,7 +57,7 @@ public class ExpressCarts implements ModInitializer {
             dispatcher.register(Commands.literal("expresscarts").executes(context -> {
                 context.getSource().sendSuccess(() -> Component.translatable(
                         "expresscarts.command.expresscarts",
-                        Component.literal(metadata.getName()).withStyle(Style.EMPTY.withUnderlined(true).withColor(ChatFormatting.BLUE).withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable("expresscarts.command.expresscarts.hover.github"))).withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, metadata.getContact().get("sources").orElse("https://example.com")))),
+                        Component.literal(metadata.getName()).withStyle(Style.EMPTY.withUnderlined(true).withColor(ChatFormatting.BLUE).withHoverEvent(new HoverEvent.ShowText(Component.translatable("expresscarts.command.expresscarts.hover.github"))).withClickEvent(new ClickEvent.OpenUrl(URI.create(metadata.getContact().get("sources").orElse("https://example.com"))))),
                         metadata.getVersion().getFriendlyString()), false);
                 context.getSource().sendSuccess(() -> Component.translatable("expresscarts.command.expresscarts.config.maxMinecartSpeed", ExpressCartsConfig.maxMinecartSpeed), false);
                 context.getSource().sendSuccess(() -> Component.translatable("expresscarts.command.expresscarts.config.waterSpeedMultiplier", ExpressCartsConfig.waterSpeedMultiplier), false);

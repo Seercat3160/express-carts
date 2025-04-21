@@ -9,7 +9,6 @@ import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -17,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
     public ExpressMinecartEntity(EntityType<?> entityType, Level level) {
@@ -30,15 +30,13 @@ public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
 
     @Override
     public void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
-        data.removeIf((x) -> x.serializer() == AbstractMinecartAccessor.getCustomBlockId().serializer()
-                || x.serializer() == AbstractMinecartAccessor.getCustomBlockOffset().serializer()
-                || x.serializer() == AbstractMinecartAccessor.getCustomBlockPresent().serializer());
+        data.removeIf((x) -> x.serializer() == AbstractMinecartAccessor.getCustomDisplayBlock().serializer()
+                || x.serializer() == AbstractMinecartAccessor.getCustomBlockOffset().serializer());
 
         // we force sending custom block data of our own rather than any the actual entity serverside might have,
         // so that our custom carts are always distinguishable to vanilla clients.
-        data.add(SynchedEntityData.DataValue.create(AbstractMinecartAccessor.getCustomBlockPresent(), true));
         data.add(SynchedEntityData.DataValue.create(AbstractMinecartAccessor.getCustomBlockOffset(), this.getDefaultDisplayOffset()));
-        data.add(SynchedEntityData.DataValue.create(AbstractMinecartAccessor.getCustomBlockId(), Block.getId(this.getDefaultDisplayBlockState())));
+        data.add(SynchedEntityData.DataValue.create(AbstractMinecartAccessor.getCustomDisplayBlock(), Optional.of(this.getDefaultDisplayBlockState())));
     }
 
     @Override

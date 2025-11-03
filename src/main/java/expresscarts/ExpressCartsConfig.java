@@ -49,4 +49,10 @@ public class ExpressCartsConfig {
     public static Component loadChunksComment() {
         return Component.translatable("expresscarts.config.comment.loadChunks");
     }
+
+    @Config(comment = "fallDamageMultiplierComment")
+    public static float fallDamageMultiplier = 1f;
+    public static Component fallDamageMultiplierComment() {
+        return Component.translatable("expresscarts.config.comment.fallDamageMultiplier");
+    }
 }

@@ -91,6 +91,8 @@ public class ExpressCarts implements ModInitializer {
                 .append("\n")
                 .append(Component.translatable("expresscarts.command.expresscarts.config.fastUnpoweredSlowdown", String.valueOf(ExpressCartsConfig.fastUnpoweredSlowdown)))
                 .append("\n")
+                .append(Component.translatable("expresscarts.command.expresscarts.config.fallDamageMultiplier", ExpressCartsConfig.fallDamageMultiplier))
+                .append("\n")
                 .append(Component.translatable("expresscarts.command.expresscarts.config.loadChunks", String.valueOf(ExpressCartsConfig.loadChunks)))
                 .append("\n")
                 .append(buildBlockOverridesMessage());
@@ -103,14 +105,19 @@ public class ExpressCarts implements ModInitializer {
             return Component.translatable("expresscarts.command.expresscarts.config.blockSpeedMultipliers.none");
         }
 
-        var component = Component.translatable("expresscarts.command.expresscarts.config.blockSpeedMultipliers.some", overrides.size()).copy();
-
-        for (var entry : overrides.entrySet()) {
-            component.append("\n");
-            component.append(Component.translatable("expresscarts.command.expresscarts.config.blockSpeedMultipliers.entry", BuiltInRegistries.BLOCK.getKey(entry.getKey()).toString(), entry.getValue()));
+        MutableComponent messageComponent;
+        if (overrides.size() == 1) {
+            messageComponent = Component.translatable("expresscarts.command.expresscarts.config.blockSpeedMultipliers.one");
+        } else {
+            messageComponent = Component.translatable("expresscarts.command.expresscarts.config.blockSpeedMultipliers.some", overrides.size()).copy();
         }
 
-        return component;
+        for (var entry : overrides.entrySet()) {
+            messageComponent.append("\n");
+            messageComponent.append(Component.translatable("expresscarts.command.expresscarts.config.blockSpeedMultipliers.entry", BuiltInRegistries.BLOCK.getKey(entry.getKey()).toString(), entry.getValue()));
+        }
+
+        return messageComponent;
     }
 
 }

@@ -56,6 +56,7 @@ while the server is stopped. The following configuration options are available:
 - `brakeSlowdown` (default 0.8): Amount by which an Express Minecart's velocity is scaled each tick their passenger holds the brakes.
 - `fastUnpoweredSlowdown` (default `false`): Stop faster on unpowered powered rails. May improve compatibility with builds such as minecart stations.
 - `loadChunks` (default `false`): Load chunks around Express Minecarts, in the same way as ender pearls.
+- `fallDamageMultiplier` (default 1.0): Fall damage multiplier for an Express Minecart's passengers.
 - `blockSpeedMultipliers`: A map from block ids (e.g. `minecraft:dirt`) to multiplier values for the maximum cart speed if the rail is placed on that block.
 
 ## Version Support

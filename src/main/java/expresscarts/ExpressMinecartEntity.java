@@ -6,6 +6,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.item.Item;
@@ -91,5 +93,14 @@ public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
     private long placeTicket(ServerLevel serverLevel, ChunkPos chunkPos) {
         serverLevel.getChunkSource().addTicketWithRadius(TicketType.ENDER_PEARL, chunkPos, 2);
         return TicketType.ENDER_PEARL.timeout();
+    }
+
+    @Override
+    protected void propagateFallToPassengers(double d, float f, DamageSource damageSource) {
+        // we scale any existing f we get, rather than completely overriding, to preserve (relative) behaviour of any blocks which already change fall damage
+        var newDamageScale = f * ExpressCartsConfig.fallDamageMultiplier;
+        for (Entity entity : this.getPassengers()) {
+            entity.causeFallDamage(d, newDamageScale, damageSource);
+        }
     }
 }

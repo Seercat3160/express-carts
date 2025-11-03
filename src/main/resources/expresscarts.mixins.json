@@ -5,10 +5,10 @@
   "mixins": [
     "AbstractMinecartAccessor",
     "AbstractMinecartMixin",
-    "ServerEntityMixin",
-    "NewMinecartBehaviorMixin",
+    "CollisionContextMixin",
     "MinecartItemMixin",
-    "CollisionContextMixin"
+    "NewMinecartBehaviorMixin",
+    "ServerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

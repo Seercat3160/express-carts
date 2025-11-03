@@ -1,2 +1,4 @@
 - Added a config option `fastUnpoweredSlowdown` (disabled by default). Enabling it will make Express Minecarts stop faster on unpowered powered rails, which is helpful when they're travelling at high speeds.
 - Added a config option `loadChunks` (disabled by default), which causes Express Minecarts to keep chunks around them loaded in the same way as Ender Pearls.
+- Added a config option `fallDamageMultiplier` (1.0 by default, which is effectively disabled), which scales the fall damage applied to an Express Minecart's passengers.
+- Improved the `/expresscarts` command to correctly use the singular if there's only one blockSpeedMultiplier set.

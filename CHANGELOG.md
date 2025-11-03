@@ -1,1 +1,2 @@
 - Added a config option `fastUnpoweredSlowdown` (disabled by default). Enabling it will make Express Minecarts stop faster on unpowered powered rails, which is helpful when they're travelling at high speeds.
+- Added a config option `loadChunks` (disabled by default), which causes Express Minecarts to keep chunks around them loaded in the same way as Ender Pearls.

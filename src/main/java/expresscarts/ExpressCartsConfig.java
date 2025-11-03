@@ -43,4 +43,10 @@ public class ExpressCartsConfig {
     public static Component fastUnpoweredSlowdownComment() {
         return Component.translatable("expresscarts.config.comment.fastUnpoweredSlowdown");
     }
+
+    @Config(comment = "loadChunksComment")
+    public static boolean loadChunks = false;
+    public static Component loadChunksComment() {
+        return Component.translatable("expresscarts.config.comment.loadChunks");
+    }
 }

@@ -91,6 +91,8 @@ public class ExpressCarts implements ModInitializer {
                 .append("\n")
                 .append(Component.translatable("expresscarts.command.expresscarts.config.fastUnpoweredSlowdown", String.valueOf(ExpressCartsConfig.fastUnpoweredSlowdown)))
                 .append("\n")
+                .append(Component.translatable("expresscarts.command.expresscarts.config.loadChunks", String.valueOf(ExpressCartsConfig.loadChunks)))
+                .append("\n")
                 .append(buildBlockOverridesMessage());
     }
 

@@ -3,11 +3,14 @@ package expresscarts;
 import eu.pb4.polymer.core.api.entity.PolymerEntity;
 import expresscarts.mixin.AbstractMinecartAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.TicketType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Minecart;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,6 +22,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
+    private ChunkPos ticketChunkPos;
+    private Long ticketTimer = 0L;
+
     public ExpressMinecartEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
@@ -66,5 +72,24 @@ public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
         }
 
         return vel;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (ExpressCartsConfig.loadChunks) {
+            if (this.level() instanceof ServerLevel serverLevel) {
+                ChunkPos chunkPos = this.chunkPosition();
+                if (--this.ticketTimer <= 0L || chunkPos != this.ticketChunkPos) {
+                    this.ticketChunkPos = chunkPos;
+                    this.ticketTimer = placeTicket(serverLevel, chunkPos);
+                }
+            }
+        }
+    }
+
+    private long placeTicket(ServerLevel serverLevel, ChunkPos chunkPos) {
+        serverLevel.getChunkSource().addTicketWithRadius(TicketType.ENDER_PEARL, chunkPos, 2);
+        return TicketType.ENDER_PEARL.timeout();
     }
 }

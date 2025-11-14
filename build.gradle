@@ -117,7 +117,7 @@ githubRelease {
     owner "seercat3160"
     repo "express-carts"
     tagName "${project.mod_version}+${project.minecraft_version}"
-    targetCommitish "main"
+    targetCommitish "backport/1.21.9"
     releaseName "${project.mod_version} for Fabric ${project.minecraft_version}"
     body changelogText
     draft true

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
+    private static final int CARPET_OFFSET_PIXELS = 2;
     private ChunkPos ticketChunkPos;
     private Long ticketTimer = 0L;
 
@@ -50,6 +51,12 @@ public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
     @Override
     public @NotNull BlockState getDefaultDisplayBlockState() {
         return Blocks.RED_CARPET.defaultBlockState();
+    }
+
+    @Override
+    public int getDefaultDisplayOffset() {
+        // shift carpet block down 2 pixels relative to default offset to sit flush on the minecart floor
+        return super.getDefaultDisplayOffset() - CARPET_OFFSET_PIXELS;
     }
 
     @Override

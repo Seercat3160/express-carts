@@ -18,7 +18,7 @@ import net.minecraft.core.dispenser.MinecartDispenseItemBehavior;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.block.Block;
@@ -34,11 +34,11 @@ public class ExpressCarts implements ModInitializer {
 
     public static final EntityType<ExpressMinecartEntity> EXPRESS_MINECART_ENTITY = Registry.register(
             BuiltInRegistries.ENTITY_TYPE,
-            ResourceLocation.fromNamespaceAndPath(ExpressCarts.MOD_ID, "minecart"),
+            Identifier.fromNamespaceAndPath(ExpressCarts.MOD_ID, "minecart"),
             EntityType.Builder.of(ExpressMinecartEntity::new, MobCategory.MISC).noLootTable()
                     .sized(0.98F, 0.7F).passengerAttachments(0.1875F).clientTrackingRange(8)
                     .build(ResourceKey.create(BuiltInRegistries.ENTITY_TYPE.key(),
-                            ResourceLocation.fromNamespaceAndPath(ExpressCarts.MOD_ID, "minecart"))));
+                            Identifier.fromNamespaceAndPath(ExpressCarts.MOD_ID, "minecart"))));
 
     @Override
     public void onInitialize() {

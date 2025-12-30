@@ -3,7 +3,7 @@ package expresscarts;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -16,7 +16,7 @@ public class ModItems {
 
     public static Item register(String name, Function<Item.Properties, Item> itemFactory, Item.Properties properties) {
         // Create the item key.
-        ResourceKey<Item> itemKey = ResourceKey.create(BuiltInRegistries.ITEM.key(), ResourceLocation.fromNamespaceAndPath(ExpressCarts.MOD_ID, name));
+        ResourceKey<Item> itemKey = ResourceKey.create(BuiltInRegistries.ITEM.key(), Identifier.fromNamespaceAndPath(ExpressCarts.MOD_ID, name));
 
         // Create the item instance.
         Item item = itemFactory.apply(properties.setId(itemKey));

@@ -7,23 +7,23 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import dev.xpple.betterconfig.util.WrappedArgumentType;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
+import net.minecraft.commands.arguments.IdentifierArgument;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 
 import java.util.concurrent.CompletableFuture;
 
-public class BlockArgumentType extends WrappedArgumentType<Block, ResourceLocation> {
+public class BlockArgumentType extends WrappedArgumentType<Block, Identifier> {
 
     public BlockArgumentType() {
-        super(ResourceLocationArgument.id());
+        super(IdentifierArgument.id());
     }
 
     @Override
     public Block parse(StringReader reader) throws CommandSyntaxException {
         var initialCursor = reader.getCursor();
-        var res = ResourceLocation.read(reader);
+        var res = Identifier.read(reader);
         var block = BuiltInRegistries.BLOCK.getOptional(res);
         if (block.isEmpty()) {
             reader.setCursor(initialCursor);

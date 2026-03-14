@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 import xyz.nucleoid.packettweaker.PacketContext;
 
 import java.util.List;
@@ -37,30 +38,36 @@ public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
     }
 
     @Override
-    public void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
-        data.removeIf((x) -> x.serializer() == AbstractMinecartAccessor.getCustomDisplayBlock().serializer()
-                || x.serializer() == AbstractMinecartAccessor.getCustomBlockOffset().serializer());
-
-        // we force sending custom block data of our own rather than any the actual entity serverside might have,
-        // so that our custom carts are always distinguishable to vanilla clients.
-        data.add(SynchedEntityData.DataValue.create(AbstractMinecartAccessor.getCustomBlockOffset(), this.getDefaultDisplayOffset()));
-        data.add(SynchedEntityData.DataValue.create(AbstractMinecartAccessor.getCustomDisplayBlock(), Optional.of(this.getDefaultDisplayBlockState())));
-    }
-
-    @Override
-    public @NotNull BlockState getDefaultDisplayBlockState() {
-        return Blocks.RED_CARPET.defaultBlockState();
-    }
-
-    @Override
     protected @NotNull Item getDropItem() {
         return ModItems.EXPRESS_MINECART;
     }
 
-
     @Override
     public @NotNull ItemStack getPickResult() {
         return new ItemStack(ModItems.EXPRESS_MINECART);
+    }
+
+    @Override
+    public void modifyRawTrackedData(List<SynchedEntityData.DataValue<?>> data, ServerPlayer player, boolean initial) {
+        data.removeIf(element ->
+            element.id() == AbstractMinecartAccessor.getCustomBlockOffset().id() || element.id() == AbstractMinecartAccessor.getCustomDisplayBlock().id()
+        );
+
+        // The client sees this as a vanilla minecart, so we have to explicitly send our default values.
+        data.add(SynchedEntityData.DataValue.create(AbstractMinecartAccessor.getCustomDisplayBlock(), Optional.of(this.getDefaultDisplayBlockState())));
+        data.add(SynchedEntityData.DataValue.create(AbstractMinecartAccessor.getCustomBlockOffset(), this.getDefaultDisplayOffset()));
+    }
+
+    @Override
+    public @NonNull BlockState getDefaultDisplayBlockState() {
+        // Used so clients can see that this is different to a vanilla minecart.
+        return Blocks.RED_CARPET.defaultBlockState();
+    }
+
+    @Override
+    public int getDefaultDisplayOffset() {
+        // To sit flat on the floor of the minecart.
+        return 4;
     }
 
     @Override

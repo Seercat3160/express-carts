@@ -11,9 +11,11 @@ class ModProps {
         return providers.gradleProperty("mod.$key").get()
     }
 
-    val id = get("id")
-    val version = get("version")
-    val group = get("group")
+    val id: String = get("id")
+    val version: String = providers.gradleProperty("mod.version").zip(localBuildVersionSuffix()) { version, suffix ->
+        "$version$suffix"
+    }.get()
+    val group: String = get("group")
 }
 
 val mod = ModProps()
@@ -22,12 +24,12 @@ fun dep(key: String): String {
     return providers.gradleProperty("deps.$key").get()
 }
 
-val mayRelease = hasProperty("publish.release")
+val releaseBuild = hasProperty("publish.release")
 
 version = "${mod.version}+${dep("minecraft")}"
 group = mod.group
 
-base.archivesName.set("${mod.id}-fabric")
+base.archivesName = "${mod.id}-fabric"
 
 repositories {
     maven("https://maven.nucleoid.xyz")
@@ -104,7 +106,7 @@ publishMods {
     file = tasks.named<RemapJarTask>("remapJar").flatMap { it.archiveFile }
     displayName = "${mod.version} for ${dep("minecraft")} Fabric"
 
-    dryRun = !mayRelease
+    dryRun = !releaseBuild
 
     modrinth {
         accessToken = providers.environmentVariable("MODRINTH_API_KEY")
@@ -130,4 +132,22 @@ tasks.named("publishMods") {
         // We don't require mayRelease == true, as in that case we set dryRun = true for publishMods
         !changelogText.isBlank() && !readmeText.isBlank()
     }
+}
+
+// If we are not performing a release build (i.e. building in CI), try to get some info about the state of the Git repo
+// to add to the version (so local builds can be easily distinguished from released builds).
+private fun localBuildVersionSuffix(): Provider<String> {
+    // git will give the (abbreviated) commit hash, suffixed with "-dirty" if the working dir is dirty.
+    // If we can't exec git, fallback to just "-local"
+    val gitCommitProvider = providers.exec {
+        commandLine("git", "describe", "--always", "--dirty", "--exclude", "*")
+    }.standardOutput.asText.map {
+        "-$it"
+    }.orElse("-local")
+
+    return providers.gradleProperty("publish.release").map {
+        // If this is called, the "publish.release" property is present.
+        // Return an empty string.
+        return@map ""
+    }.orElse(gitCommitProvider)
 }

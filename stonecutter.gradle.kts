@@ -37,6 +37,8 @@ publishMods {
 
     displayName = rootProject.version.toString()
 
+    modLoaders.add("fabric")
+
     dryRun = !hasProperty("publish.release")
 
     github {

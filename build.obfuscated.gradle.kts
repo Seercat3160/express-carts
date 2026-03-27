@@ -118,6 +118,8 @@ publishMods {
     file = tasks.remapJar.flatMap { it.archiveFile }
     displayName = "${rootProject.version} for ${sc.current.version} Fabric"
 
+    modLoaders.add("fabric")
+
     dryRun = !hasProperty("publish.release")
 
     modrinth {

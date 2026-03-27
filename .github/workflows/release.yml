@@ -26,6 +26,7 @@ jobs:
       - name: Release to Modrinth and GitHub
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew publishMods -Ppublish.release=true
 
       - name: Upload Artifacts

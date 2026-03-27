@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "expresscarts",
+	"id": "${id}",
 	"version": "${version}",
 	"name": "Express Carts",
 	"description": "New, faster minecarts usable by Vanilla clients.",
@@ -12,26 +12,19 @@
 	},
 	"license": "MIT",
 	"icon": "assets/expresscarts/icon.png",
-	"environment": "*",
+	"environment": "server",
 	"entrypoints": {
 		"main": [
 			"expresscarts.ExpressCarts"
-		],
-		"client": [
-			"expresscarts.ExpressCartsClient"
 		]
 	},
 	"mixins": [
-		"expresscarts.mixins.json",
-		{
-			"config": "expresscarts.client.mixins.json",
-			"environment": "client"
-		}
+		"expresscarts.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=${loader_version}",
-		"minecraft": "^${minecraft_version}",
-		"java": ">=21",
-		"fabric-api": "*"
+		"fabricloader": ">=${fabricloader}",
+		"minecraft": "^${minecraft}",
+		"java": ">=${java}",
+		"fabric-api": ">=${fabricapi}"
 	}
 }

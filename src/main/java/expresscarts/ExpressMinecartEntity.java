@@ -19,7 +19,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
-import xyz.nucleoid.packettweaker.PacketContext;
+//? if < 26.1 {
+/*import xyz.nucleoid.packettweaker.PacketContext;
+*///?} else
+import net.fabricmc.fabric.api.networking.v1.context.PacketContext;
 
 import java.util.List;
 import java.util.Optional;

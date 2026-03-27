@@ -61,5 +61,6 @@ while the server is stopped. The following configuration options are available:
 
 ## Version Support
 
-We aim to support the latest version of Minecraft as the primary target for feature additions.
-The mod version will not be incremented if the only change is supporting a new version of Minecraft, but a new release will be published.
+The latest version of Minecraft is the primary target for feature additions and bug fixes,
+but the mod may simultaneously be maintained for older Minecraft versions at our discretion.
+Please let us know if you would like a particular Minecraft version to be supported.

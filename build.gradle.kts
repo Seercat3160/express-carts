@@ -1,6 +1,6 @@
 plugins {
-    id("net.fabricmc.fabric-loom")
     id("me.modmuss50.mod-publish-plugin")
+    id("dev.kikugie.loom-back-compat")
 }
 
 version = "${rootProject.version}+${sc.current.version}"
@@ -16,12 +16,14 @@ repositories {
 }
 
 dependencies {
-    fun modInclude(dep: Any): Dependency? = implementation(include(dep)!!)
+    fun modInclude(dep: Any): Dependency? = modImplementation(include(dep)!!)
 
     minecraft("com.mojang:minecraft:${sc.current.version}")
-    implementation("net.fabricmc:fabric-loader:${property("deps.fabric.loader")}")
+    modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric.loader")}")
 
-    implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric.api")}")
+    loomx.applyMojangMappings()
+
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric.api")}")
 
     modInclude("eu.pb4:polymer-core:${property("deps.polymer")}")
     modInclude("eu.pb4:polymer-resource-pack:${property("deps.polymer")}")
@@ -60,7 +62,7 @@ tasks {
     // Builds the version into a shared folder in `build/libs/${mod version}/`
     register<Copy>("buildAndCollect") {
         group = "build"
-        from(jar.map { it.archiveFile })
+        from(loomx.modJar.map { it.archiveFile })
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
         dependsOn("build")
     }
@@ -89,7 +91,6 @@ loom {
         vmArgs("-Dmixin.debug.export=true") // Exports transformed classes for debugging
         runDir = "../../run" // Shares the run directory between versions
     }
-
 }
 
 val requiredJava = when {
@@ -101,7 +102,9 @@ val requiredJava = when {
 }
 
 java {
-    withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(requiredJava.majorVersion)
+    }
 
     sourceCompatibility = requiredJava
     targetCompatibility = requiredJava
@@ -113,7 +116,7 @@ val changelogText = rootProject.providers.fileContents(rootProject.layout.projec
 publishMods {
     changelog = changelogText
     type = STABLE
-    file = tasks.jar.flatMap { it.archiveFile }
+    file = loomx.modJar.flatMap { it.archiveFile }
     displayName = "${rootProject.version} for ${sc.current.version} Fabric"
 
     modLoaders.add("fabric")

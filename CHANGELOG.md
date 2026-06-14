@@ -1,3 +1,1 @@
-- Fixed a bug where hitting an Express Minecart would not cause it to wobble.
-- Improved the build system, so the mod can now be maintained for multiple Minecraft versions at once!
-- Added support for Minecraft 26.1.
+- Added support for Minecraft 26.2

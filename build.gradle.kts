@@ -18,7 +18,7 @@ repositories {
 dependencies {
     fun modInclude(dep: Any): Dependency? = modImplementation(include(dep)!!)
 
-    minecraft("com.mojang:minecraft:${sc.current.version}")
+    minecraft("com.mojang:minecraft:${property("deps.minecraft")}")
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric.loader")}")
 
     loomx.applyMojangMappings()
@@ -37,7 +37,7 @@ tasks {
         val props = mapOf(
             "id" to project.property("mod.id"),
             "version" to project.version,
-            "minecraft" to sc.current.version,
+            "minecraft" to project.property("deps.minecraft.fmj"),
             "fabricloader" to project.property("deps.fabric.loader"),
             "fabricapi" to project.property("deps.fabric.api"),
             "java" to requiredJava.majorVersion

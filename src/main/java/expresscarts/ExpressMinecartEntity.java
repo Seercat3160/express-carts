@@ -9,6 +9,8 @@ import net.minecraft.server.level.TicketType;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+//? >= 26.2
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.vehicle.minecart.Minecart;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,7 +39,10 @@ public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
 
     @Override
     public EntityType<?> getPolymerEntityType(PacketContext context) {
-        return EntityType.MINECART;
+        //? if >=26.2 {
+        return EntityTypes.MINECART;
+        //?} else
+        //return EntityType.MINECART;
     }
 
     @Override
@@ -64,7 +69,10 @@ public class ExpressMinecartEntity extends Minecart implements PolymerEntity {
     @Override
     public @NonNull BlockState getDefaultDisplayBlockState() {
         // Used so clients can see that this is different to a vanilla minecart.
-        return Blocks.RED_CARPET.defaultBlockState();
+        //? if >= 26.2 {
+        return Blocks.CARPET.red().defaultBlockState();
+        //?} else
+        //return Blocks.RED_CARPET.defaultBlockState();
     }
 
     @Override

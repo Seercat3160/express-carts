@@ -2,7 +2,7 @@ plugins {
     id("dev.kikugie.stonecutter")
     id("me.modmuss50.mod-publish-plugin")
 }
-stonecutter active "26.1"
+stonecutter active "26.2"
 
 // This base mod version is used by the subprojects (for each minecraft version), which add the MC version as a suffix.
 rootProject.version = "${property("mod.version")}${localBuildVersionSuffix().get()}"

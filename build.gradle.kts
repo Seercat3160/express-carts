@@ -3,7 +3,7 @@ plugins {
     id("dev.kikugie.loom-back-compat")
 }
 
-version = "${rootProject.version}+${sc.current.version}"
+version = "${rootProject.version}+${property("deps.minecraft")}"
 group = property("mod.group").toString()
 
 base.archivesName = "${property("mod.id")}-fabric"
@@ -78,18 +78,15 @@ loom {
     }
 
     fabricModJsonPath = rootProject.file("src/main/resources/fabric.mod.json") // Useful for interface injection
-//    accessWidenerPath = sc.process(
-//        rootProject.file("src/main/resources/template.ct"),
-//        "build/processed.ct"
-//    )
+
     decompilerOptions.named("vineflower") {
-        options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas - useful for mixins
+        options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas
     }
 
     runConfigs.all {
-        ideConfigGenerated(true)
-        vmArgs("-Dmixin.debug.export=true") // Exports transformed classes for debugging
-        runDir = "../../run" // Shares the run directory between versions
+        generateRunConfig = true
+        jvmArguments.add("-Dmixin.debug.export=true") // Exports transformed classes for debugging
+        runDirectory = rootDir.resolve("run") // Share run directory between versions
     }
 }
 

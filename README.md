@@ -29,6 +29,8 @@ However, we highly recommend making Polymer's generated resource pack available 
 such as by using [Polymer's AutoHost module](https://polymer.pb4.eu/latest/user/resource-pack-hosting/)
 which requires installing that mod separately.
 
+Singleplayer works, but is not as actively maintained as use with dedicated servers.
+
 ## Usage
 
 An Express Minecart can be crafted using a normal minecart and a redstone torch.
@@ -47,8 +49,8 @@ while inside an Express Minecart to slow the minecart down. The acceleration app
 
 ## Configuration
 
-Express Carts can be configured by using the commands under `/config expresscarts`, or by editing `config/expresscarts/config.json`
-while the server is stopped. The following configuration options are available:
+Express Carts can be configured by using the commands under `/config expresscarts` (`/cconfig expresscarts` in singleplayer),
+or by editing `config/expresscarts/config.json` while the server is stopped. The following configuration options are available:
 
 - `maxMinecartSpeed` (default 16): The maximum speed that can be reached by Express Minecarts, in blocks per second.
 - `waterSpeedMultiplier` (default 0.5): The scaling factor applied to an Express Minecart's maximum speed when it is in water.

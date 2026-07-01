@@ -1,3 +1,1 @@
-- Added support for Minecraft 26.2
-- Updated dependencies (for all Minecraft versions)
-  - I am not aware of any issues caused by the previous versions, so updating is not strictly necessary
+- Fixed an oversight that unintentionally prevented the mod from functioning in singleplayer

@@ -12,7 +12,7 @@
 	},
 	"license": "MIT",
 	"icon": "assets/expresscarts/icon.png",
-	"environment": "server",
+	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"expresscarts.ExpressCarts"

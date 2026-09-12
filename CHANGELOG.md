@@ -1,1 +1,1 @@
-- Fixed an oversight that unintentionally prevented the mod from functioning in singleplayer
+- Added support for Minecraft 26.3

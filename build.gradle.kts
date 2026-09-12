@@ -83,7 +83,7 @@ loom {
         options.put("mark-corresponding-synthetics", "1") // Adds names to lambdas
     }
 
-    runConfigs.all {
+    runs.configureEach {
         generateRunConfig = true
         jvmArguments.add("-Dmixin.debug.export=true") // Exports transformed classes for debugging
         runDirectory = rootDir.resolve("run") // Share run directory between versions

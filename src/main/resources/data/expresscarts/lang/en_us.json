@@ -1,5 +1,7 @@
 {
   "item.expresscarts.minecart": "Express Minecart",
+  "item.expresscarts.chest_minecart": "Express Minecart with Chest",
+  "entity.expresscarts.chest_minecart": "Express Minecart with Chest",
   "expresscarts.command.expresscarts": "%1$s version %2$s.",
   "expresscarts.command.expresscarts.config.maxMinecartSpeed": "Maximum Minecart speed (base): %s",
   "expresscarts.command.expresscarts.config.waterSpeedMultiplier": "Water speed multiplier: %s",

@@ -33,14 +33,22 @@ Singleplayer works, but is not as actively maintained as use with dedicated serv
 
 ## Usage
 
-An Express Minecart can be crafted using a normal minecart and a redstone torch.
-The Express Minecart item will be seen by Vanilla players as a normal minecart item with an enchantment glint,
-and players with the Polymer-generated resource pack will see a custom item texture.
+An Express Minecart can be crafted using a normal minecart and a redstone torch,
+and an Express Minecart with Chest can be crafted using a chest minecart and a redstone torch.
+The Express Minecart items will be seen by Vanilla players as normal minecart items with an enchantment glint,
+and players with the Polymer-generated resource pack will see custom item textures.
 
-Only a normal (passenger) minecart variant is available, not any of the other Vanilla minecart types.
-It is used exactly like normal, it just has twice the maximum speed and substantially improved physics behaviours.
+The minecart is used exactly like normal, it just has twice the default maximum speed and improved physics behaviours.
 
 When placed in the world, an Express Minecart will appear as a minecart with a red carpet inside, to distinguish it from a normal minecart.
+
+### Chest Minecart variant
+
+As well as the Express Minecart, this mod also adds an Express Minecart with Chest.
+It is crafted using a Minecart with Chest and a redstone torch.
+
+It appears in the world with a trapped chest to distinguish it from vanilla chest minecarts.
+This is visual only, there is no functional difference from a normal chest minecart aside from the movement.
 
 ### Braking
 
@@ -65,4 +73,5 @@ or by editing `config/expresscarts/config.json` while the server is stopped. The
 
 The latest version of Minecraft is the primary target for feature additions and bug fixes,
 but the mod may simultaneously be maintained for older Minecraft versions at our discretion.
+Older versions may not be tested as thoroughly when the mod is updated.
 Please let us know if you would like a particular Minecraft version to be supported.

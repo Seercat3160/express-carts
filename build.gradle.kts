@@ -86,7 +86,6 @@ loom {
     runs.configureEach {
         generateRunConfig = true
         jvmArguments.add("-Dmixin.debug.export=true") // Exports transformed classes for debugging
-        runDirectory = rootDir.resolve("run") // Share run directory between versions
     }
 }
 

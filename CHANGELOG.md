@@ -1,1 +1,1 @@
-- Added support for Minecraft 26.3
+- Added the Express Minecart with Chest

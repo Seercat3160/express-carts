@@ -5,6 +5,9 @@ import eu.pb4.polymer.core.api.entity.PolymerEntityUtils;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import expresscarts.config.BlockArgumentType;
 import expresscarts.config.BlockTypeAdapter;
+import expresscarts.entities.ExpressMinecart;
+import expresscarts.entities.ExpressMinecartChest;
+import expresscarts.items.ModItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
@@ -32,13 +35,21 @@ public class ExpressCarts implements ModInitializer {
     public static final String MOD_ID = "expresscarts";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static final EntityType<ExpressMinecartEntity> EXPRESS_MINECART_ENTITY = Registry.register(
+    public static final EntityType<ExpressMinecart> EXPRESS_MINECART_ENTITY = Registry.register(
             BuiltInRegistries.ENTITY_TYPE,
             Identifier.fromNamespaceAndPath(ExpressCarts.MOD_ID, "minecart"),
-            EntityType.Builder.of(ExpressMinecartEntity::new, MobCategory.MISC).noLootTable()
+            EntityType.Builder.of(ExpressMinecart::new, MobCategory.MISC).noLootTable()
                     .sized(0.98F, 0.7F).passengerAttachments(0.1875F).clientTrackingRange(8)
                     .build(ResourceKey.create(BuiltInRegistries.ENTITY_TYPE.key(),
                             Identifier.fromNamespaceAndPath(ExpressCarts.MOD_ID, "minecart"))));
+
+    public static final EntityType<ExpressMinecartChest> EXPRESS_CHEST_MINECART_ENTITY = Registry.register(
+            BuiltInRegistries.ENTITY_TYPE,
+            Identifier.fromNamespaceAndPath(ExpressCarts.MOD_ID, "chest_minecart"),
+            EntityType.Builder.of(ExpressMinecartChest::new, MobCategory.MISC).noLootTable()
+                    .sized(0.98F, 0.7F).passengerAttachments(0.1875F).clientTrackingRange(8)
+                    .build(ResourceKey.create(BuiltInRegistries.ENTITY_TYPE.key(),
+                            Identifier.fromNamespaceAndPath(ExpressCarts.MOD_ID, "chest_minecart"))));
 
     @Override
     public void onInitialize() {
@@ -49,11 +60,13 @@ public class ExpressCarts implements ModInitializer {
                 .build();
 
         PolymerEntityUtils.registerType(EXPRESS_MINECART_ENTITY);
+        PolymerEntityUtils.registerType(EXPRESS_CHEST_MINECART_ENTITY);
         PolymerResourcePackUtils.addModAssets(ExpressCarts.MOD_ID);
 
         ModItems.initialize();
 
         DispenserBlock.registerBehavior(ModItems.EXPRESS_MINECART, new MinecartDispenseItemBehavior(EXPRESS_MINECART_ENTITY));
+        DispenserBlock.registerBehavior(ModItems.EXPRESS_CHEST_MINECART, new MinecartDispenseItemBehavior(EXPRESS_CHEST_MINECART_ENTITY));
 
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(Commands.literal("expresscarts").executes(context -> {

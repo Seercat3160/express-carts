@@ -1,5 +1,6 @@
-package expresscarts;
+package expresscarts.items;
 
+import expresscarts.ExpressCarts;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -12,6 +13,10 @@ import java.util.function.Function;
 public class ModItems {
     public static final Item EXPRESS_MINECART = register("minecart",
             settings -> new ExpressMinecartItem(ExpressCarts.EXPRESS_MINECART_ENTITY, settings, Items.MINECART),
+            new Item.Properties().stacksTo(1));
+
+    public static final Item EXPRESS_CHEST_MINECART = register("chest_minecart",
+            settings -> new ExpressMinecartItem(ExpressCarts.EXPRESS_CHEST_MINECART_ENTITY, settings, Items.CHEST_MINECART),
             new Item.Properties().stacksTo(1));
 
     public static Item register(String name, Function<Item.Properties, Item> itemFactory, Item.Properties properties) {

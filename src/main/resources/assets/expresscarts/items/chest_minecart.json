@@ -1,0 +1,6 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "expresscarts:item/chest_minecart"
+    }
+}

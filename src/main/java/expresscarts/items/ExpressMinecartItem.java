@@ -1,4 +1,4 @@
-package expresscarts;
+package expresscarts.items;
 
 import eu.pb4.polymer.core.api.item.PolymerItem;
 import eu.pb4.polymer.core.api.item.PolymerItemUtils;

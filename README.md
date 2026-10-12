@@ -14,6 +14,7 @@ It gives your players a better minecart experience without requiring clientside 
 - Vanilla minecarts unaffected, so it doesn't break technical builds or cartstone
 - No clientside mods required (and they never will be)
 - Inspired by TaterCart, though without aiming to support all its features
+- Chest minecarts are also supported
 
 It adds the "Express Minecart", which has a default maximum speed of 16 blocks per second (compared to the vanilla 8) and uses
 the behaviours from Minecraft's Minecart Improvements experimental feature without requiring that feature to be enabled

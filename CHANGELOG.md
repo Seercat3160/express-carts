@@ -1,1 +1,5 @@
 - Added the Express Minecart with Chest
+- Update some dependencies for 26.2 and 26.3 builds, for general maintenance reasons.
+  - I am not aware of any specific problems this would solve for my mod, but it's good practice since I'm bundling Polymer.
+  - You may need to update Fabric API and Polymer.
+- Release source jars along with the mod jars.

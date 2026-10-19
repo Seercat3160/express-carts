@@ -54,15 +54,17 @@ tasks {
     }
 
     jar {
-        from("LICENSE") {
-            rename { "${it}_${base.archivesName.get()}" }
+        val name = base.archivesName
+        from(rootProject.file("LICENSE")) {
+            rename { "${it}_${name.get()}" }
         }
     }
 
     // Builds the version into a shared folder in `build/libs/${mod version}/`
     register<Copy>("buildAndCollect") {
+        description = "Copy built mod jars from all versions to the top-level build/libs/{mod version} directory"
         group = "build"
-        from(loomx.modJar.map { it.archiveFile })
+        from(loomx.modJar.map { it.archiveFile }, loomx.modSourcesJar.map { it.archiveFile })
         into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
         dependsOn("build")
     }
@@ -98,6 +100,8 @@ val requiredJava = when {
 }
 
 java {
+    withSourcesJar()
+
     toolchain {
         languageVersion = JavaLanguageVersion.of(requiredJava.majorVersion)
     }
@@ -113,6 +117,7 @@ publishMods {
     changelog = changelogText
     type = STABLE
     file = loomx.modJar.flatMap { it.archiveFile }
+    additionalFiles.from(loomx.modSourcesJar.flatMap { it.archiveFile })
     displayName = "${rootProject.version} for ${sc.current.version} Fabric"
 
     modLoaders.add("fabric")
